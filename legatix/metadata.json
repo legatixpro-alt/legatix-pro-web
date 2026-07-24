@@ -1,0 +1,6 @@
+{
+  "name": "Legatix",
+  "description": "Infraestructura digital diseñada para escalar negocios, automatizar la logística y dominar la administración empresarial en Venezuela y LATAM.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
