@@ -12,12 +12,16 @@ export function Hero() {
     if (video) {
       video.defaultMuted = true;
       video.muted = true;
+      video.setAttribute('muted', '');
+      video.setAttribute('playsinline', '');
       video.playsInline = true;
-      video.play().catch(() => {
-        // Retry playing if browser prevented initial autoplay
-        video.muted = true;
-        video.play().catch(() => {});
-      });
+      const playVideo = () => {
+        video.play().catch(() => {
+          video.muted = true;
+          video.play().catch(() => {});
+        });
+      };
+      playVideo();
     }
   }, []);
 
@@ -33,8 +37,11 @@ export function Hero() {
           muted
           playsInline
           preload="auto"
+          poster="/legatix-public.jpeg"
           className="absolute inset-0 w-full h-full object-cover object-center opacity-80 pointer-events-none"
-        />
+        >
+          <source src="/hero-bg.mp4" type="video/mp4" />
+        </video>
         <div className="absolute inset-0 bg-gradient-to-t from-legatix-bg via-legatix-bg/30 to-transparent pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-b from-legatix-bg/50 via-transparent to-transparent pointer-events-none" />
       </div>

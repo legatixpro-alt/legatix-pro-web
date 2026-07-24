@@ -9,11 +9,16 @@ export function Agro() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.defaultMuted = true;
-      videoRef.current.muted = true;
-      videoRef.current.play().catch((err) => {
-        console.log("Agro video autoplay prevented or delayed:", err);
+    const video = videoRef.current;
+    if (video) {
+      video.defaultMuted = true;
+      video.muted = true;
+      video.setAttribute('muted', '');
+      video.setAttribute('playsinline', '');
+      video.playsInline = true;
+      video.play().catch(() => {
+        video.muted = true;
+        video.play().catch(() => {});
       });
     }
   }, []);
@@ -76,7 +81,7 @@ export function Agro() {
           
           <div className="w-full md:w-1/2 relative">
             <div className="aspect-square md:aspect-[4/3] rounded-3xl overflow-hidden border border-white/10 shadow-[0_0_50px_rgba(212,175,55,0.15)] relative group">
-              <div className="absolute inset-0 bg-gradient-to-t from-legatix-bg via-transparent to-transparent z-10" />
+              <div className="absolute inset-0 bg-gradient-to-t from-legatix-bg via-transparent to-transparent z-10 pointer-events-none" />
               <video
                 ref={videoRef}
                 src="/legatix-agro-video.mp4"
@@ -87,7 +92,9 @@ export function Agro() {
                 preload="auto"
                 poster="/legatix-agro.jpeg"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
+              >
+                <source src="/legatix-agro-video.mp4" type="video/mp4" />
+              </video>
             </div>
           </div>
         </div>
